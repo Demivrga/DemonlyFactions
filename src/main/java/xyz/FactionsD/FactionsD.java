@@ -58,9 +58,7 @@ public class FactionsD extends JavaPlugin {
 	public void saveFactions() {
 
 		for (FactionsManager f : FactionsHandler.getLoadedFactions()) {
-
 			File file = new File(getDataFolder(), "Factions//" + f.getFactionName() + ".yml");
-
 			if (!file.exists()) {
 				try {
 					file.createNewFile();

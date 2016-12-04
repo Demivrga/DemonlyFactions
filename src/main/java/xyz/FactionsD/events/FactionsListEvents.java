@@ -30,7 +30,7 @@ public class FactionsListEvents implements Listener {
 				String s2 = s1[1];
 				
 				if (ev.getCurrentItem().equals(FactionItems.ArrowForward())) {
-					if (Integer.parseInt(s2) + 1 == j) {
+					if (Integer.parseInt(s2) + 1 <= j) {
 						p.openInventory(FactionsList.factionsList(Integer.parseInt(s2) + 1));
 					}
 				}

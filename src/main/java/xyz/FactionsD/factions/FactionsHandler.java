@@ -56,7 +56,17 @@ public class FactionsHandler {
 			return null;
 		}
 		for (FactionsManager fm : factions.values()) {
-			if (fm.getFactionMembersUUID().contains(uuid)) {
+			if (fm.getFactionMembersUUID() != null) {
+				if (fm.getFactionMembersUUID().contains(uuid)) {
+					return fm.getFactionName();
+				}
+			}
+			if (fm.getFactionModsUUID() != null) {
+				if (fm.getFactionModsUUID().contains(uuid)) {
+					return fm.getFactionName();
+				}
+			}
+			if (fm.getFactionOwnerUUID().equals(uuid)) {
 				return fm.getFactionName();
 			}
 		}
@@ -68,8 +78,10 @@ public class FactionsHandler {
 		String rank = "Member";
 		FactionsManager f = getFaction(FactionName);
 
-		if (f.getFactionModsUUID().contains(uuid)) {
-			rank = "Mod";
+		if (f.getFactionModsUUID() != null) {
+			if (f.getFactionModsUUID().contains(uuid)) {
+				rank = "Mod";
+			}
 		}
 		if (f.getFactionOwnerUUID().equals(uuid)) {
 			rank = "Owner";
@@ -101,8 +113,10 @@ public class FactionsHandler {
 			return false;
 		}
 		FactionsManager f = getFaction(FactionName);
-		if (f.getFactionMembersUUID().contains(uuid)) {
-			return false;
+		if (f.getFactionMembersUUID() != null) {
+			if (f.getFactionMembersUUID().contains(uuid)) {
+				return false;
+			}
 		}
 
 		List<String> members = f.getFactionMembersUUID();
@@ -147,8 +161,10 @@ public class FactionsHandler {
 			return false;
 		}
 		FactionsManager f = getFaction(FactionName);
-		if (f.getFactionModsUUID().contains(uuid)) {
-			return false;
+		if (f.getFactionModsUUID() != null) {
+			if (f.getFactionModsUUID().contains(uuid)) {
+				return false;
+			}
 		}
 
 		List<String> mods = f.getFactionModsUUID();
@@ -176,7 +192,9 @@ public class FactionsHandler {
 		mods.remove(uuid);
 		f.setFactionModsUUID(mods);
 
-		addFactionMember(uuid, FactionName);
+		if (!f.getFactionMembersUUID().contains(uuid)) {
+			addFactionMember(uuid, FactionName);
+		}
 
 		return true;
 	}
