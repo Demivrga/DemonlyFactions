@@ -14,6 +14,13 @@ import org.bukkit.entity.Player;
 import xyz.FactionsD.FactionsD;
 
 public class FactionsHandler {
+	
+	/*
+	 * 
+	 * Thanks to @ScruffyRules for code assistance!
+	 * Thanks to @SpottedLeaf for code assistance!
+	 * 
+	 */
 
 	private static HashMap<String, FactionsManager> factions = new HashMap<String, FactionsManager>();
 
@@ -124,7 +131,8 @@ public class FactionsHandler {
 
 		return true;
 	}
-
+	
+	// Load Factions Method
 	public static boolean loadFaction(String FactionName) {
 		FactionsManager fm = new FactionsManager();
 		List<String> members = new ArrayList<String>();
