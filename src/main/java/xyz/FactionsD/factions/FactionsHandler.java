@@ -24,7 +24,7 @@ public class FactionsHandler {
 
 	// Getting all the loaded Factions
 	public static Collection<FactionsManager> getLoadedFactions() {
-		if ((factions.isEmpty()) || (factions == null)) {
+		if ((factions == null) || (factions.isEmpty())) {
 			return null;
 		}
 		return factions.values();
@@ -129,6 +129,7 @@ public class FactionsHandler {
 		FactionsManager fm = new FactionsManager();
 		List<String> members = new ArrayList<String>();
 		List<String> mods = new ArrayList<String>();
+		String name = null;
 		UUID owneruuid = null;
 		int money = 0;
 
@@ -141,7 +142,8 @@ public class FactionsHandler {
 			if (file.getName().equalsIgnoreCase(FactionName + ".yml")) {
 
 				YamlConfiguration factionfile = YamlConfiguration.loadConfiguration(file);
-				owneruuid = (UUID) factionfile.get("Faction.owner");
+				owneruuid = UUID.fromString(factionfile.getString("Faction.owner"));
+				name = factionfile.getString("Faction.name");
 				money = factionfile.getInt("Faction.money");
 
 				if (factionfile.contains("Faction.members")) {
@@ -153,6 +155,7 @@ public class FactionsHandler {
 			}
 		}
 
+		fm.setFactionName(name);
 		fm.setFactionMembersUUID(members);
 		fm.setFactionOwner(owneruuid);
 		fm.setFactionMoney(money);

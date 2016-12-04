@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import xyz.FactionsD.factions.FactionsHandler;
+
 public class FactionsD extends JavaPlugin {
 	
 	private static FactionsD pl;
@@ -17,10 +19,26 @@ public class FactionsD extends JavaPlugin {
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
+		
+		// Loading our factions.
+		this.loadFactions();
 	}
 	
 	public void onDisable() {
 		System.out.println("[DemonlyFactions] has been DISABLED!");
+	}
+	
+	public void loadFactions() {
+		 File[] files = new File(getDataFolder(), "Factions").listFiles();
+		    File[] arrayOfFile1;
+		    int j = (arrayOfFile1 = files).length;
+		    for (int i = 0; i < j; i++)
+		    {
+		      File file = arrayOfFile1[i];
+		      String name = file.getName().replaceAll(".yml", "");
+		      FactionsHandler.loadFaction(name);
+		    }
+		    this.loaded = true;
 	}
 	
 	public FactionsD() {
