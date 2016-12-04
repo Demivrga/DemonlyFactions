@@ -1,0 +1,5 @@
+name: DemonlyFactions
+main: xyz.FactionsD.FactionsD
+version: 0.1
+author: Demonly
+softdepend: [PlaceholderAPI]

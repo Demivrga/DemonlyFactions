@@ -16,7 +16,7 @@ public class FactionsManager {
 	
 	// These are our methods for getting faction information.
 	public String getFactionName() {
-		return factionName;
+		return this.factionName;
 	}
 	
 	public String getFactionOwner() {
@@ -49,8 +49,7 @@ public class FactionsManager {
 		this.factionName = name;
 	}
 	
-	public void setFactionOwner(String owner, UUID uuid) {
-		this.factionOwner = owner;
+	public void setFactionOwner(UUID uuid) {
 		this.factionOwnerUUID = uuid;
 	}
 	
