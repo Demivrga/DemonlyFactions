@@ -163,17 +163,4 @@ public class FactionsHandler {
 
 		return true;
 	}
-
-	public static void loadTESTFaction() {
-		for (int i = 1; i < 100; i++) {
-			FactionsManager fm = new FactionsManager();
-			List<String> mods = new ArrayList<String>();
-			fm.setFactionName("" + i);
-			fm.setFactionOwner(UUID.randomUUID());
-			fm.setFactionModsUUID(mods);
-			fm.setFactionMembersUUID(mods);
-
-			put("" + i, fm);
-		}
-	}
 }
