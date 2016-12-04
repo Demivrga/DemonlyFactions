@@ -14,18 +14,18 @@ import org.bukkit.entity.Player;
 import xyz.FactionsD.FactionsD;
 
 public class FactionsHandler {
-	
+
 	/*
 	 * 
-	 * Thanks to @ScruffyRules for code assistance!
-	 * Thanks to @SpottedLeaf for code assistance!
+	 * Thanks to @ScruffyRules for code assistance! Thanks to @SpottedLeaf for
+	 * code assistance!
 	 * 
 	 */
 
 	private static HashMap<String, FactionsManager> factions = new HashMap<String, FactionsManager>();
 
 	// Putting factions inside the FactionManager
-	public static void put(String FactionName, FactionsManager faction) {
+	public static void addFaction(String FactionName, FactionsManager faction) {
 		factions.put(FactionName, faction);
 	}
 
@@ -100,14 +100,40 @@ public class FactionsHandler {
 		if (getFaction(FactionName) == null) {
 			return false;
 		}
-		FactionsManager main = getFaction(FactionName);
-		if (main.getFactionMembersUUID().contains(uuid)) {
+		FactionsManager f = getFaction(FactionName);
+		if (f.getFactionMembersUUID().contains(uuid)) {
 			return false;
 		}
-		List<String> members = main.getFactionMembersUUID();
+
+		List<String> members = f.getFactionMembersUUID();
 		String suuid = uuid.toString();
 		members.add(suuid);
-		main.setFactionMembersUUID(members);
+		f.setFactionMembersUUID(members);
+
+		return true;
+	}
+
+	// Removing a faction member
+	public static boolean removeFactionMember(UUID uuid, String FactionName) {
+		if ((factions == null) && (factions.isEmpty())) {
+			return false;
+		}
+		if (getFaction(FactionName) == null) {
+			return false;
+		}
+		FactionsManager f = getFaction(FactionName);
+		if (f.getFactionModsUUID().contains(uuid)) {
+			List<String> mods = f.getFactionModsUUID();
+			mods.remove(uuid);
+			f.setFactionModsUUID(mods);
+		}
+		if (!f.getFactionMembersUUID().contains(uuid)) {
+			return false;
+		}
+
+		List<String> members = f.getFactionMembersUUID();
+		members.remove(uuid);
+		f.setFactionMembersUUID(members);
 
 		return true;
 	}
@@ -120,18 +146,41 @@ public class FactionsHandler {
 		if (getFaction(FactionName) == null) {
 			return false;
 		}
-		FactionsManager main = getFaction(FactionName);
-		if (main.getFactionModsUUID().contains(uuid)) {
+		FactionsManager f = getFaction(FactionName);
+		if (f.getFactionModsUUID().contains(uuid)) {
 			return false;
 		}
-		List<String> mods = main.getFactionModsUUID();
+
+		List<String> mods = f.getFactionModsUUID();
 		String suuid = uuid.toString();
 		mods.add(suuid);
-		main.setFactionModsUUID(mods);
+		f.setFactionModsUUID(mods);
 
 		return true;
 	}
-	
+
+	// Removing a faction moderator
+	public static boolean removeFactionMod(UUID uuid, String FactionName) {
+		if ((factions == null) && (factions.isEmpty())) {
+			return false;
+		}
+		if (getFaction(FactionName) == null) {
+			return false;
+		}
+		FactionsManager f = getFaction(FactionName);
+		if (!f.getFactionModsUUID().contains(uuid)) {
+			return false;
+		}
+
+		List<String> mods = f.getFactionModsUUID();
+		mods.remove(uuid);
+		f.setFactionModsUUID(mods);
+
+		addFactionMember(uuid, FactionName);
+
+		return true;
+	}
+
 	// Load Factions Method
 	public static boolean loadFaction(String FactionName) {
 		FactionsManager fm = new FactionsManager();
@@ -167,7 +216,7 @@ public class FactionsHandler {
 		fm.setFactionMembersUUID(members);
 		fm.setFactionOwner(owneruuid);
 		fm.setFactionMoney(money);
-		put(FactionName, fm);
+		addFaction(FactionName, fm);
 
 		return true;
 	}
