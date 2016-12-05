@@ -198,8 +198,8 @@ public class FactionsHandler {
 
 		return true;
 	}
-	
-	// Adding a member to the faction
+
+	// Adding a invite to the faction
 	public static boolean addFactionInvite(UUID uuid, String FactionName) {
 		if ((factions == null) && (factions.isEmpty())) {
 			return false;
@@ -222,7 +222,7 @@ public class FactionsHandler {
 		return true;
 	}
 
-	// Removing a faction member
+	// Removing a faction invite
 	public static boolean removeFactionInvite(UUID uuid, String FactionName) {
 		if ((factions == null) && (factions.isEmpty())) {
 			return false;
@@ -268,7 +268,7 @@ public class FactionsHandler {
 				if (factionfile.contains("Faction.members")) {
 					members.addAll(factionfile.getStringList("Faction.members"));
 				}
-				if(factionfile.contains("Faction.invites")) {
+				if (factionfile.contains("Faction.invites")) {
 					invites.addAll(factionfile.getStringList("Faction.invites"));
 				}
 				if (factionfile.contains("Faction.mods")) {

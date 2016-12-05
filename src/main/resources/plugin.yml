@@ -8,4 +8,4 @@ commands:
     description: Open the Factions Menu
     aliases: [fac, factions, f, fa]
   create:
-    description: Open the Factions Menu
+    description: developer command please remove before release
