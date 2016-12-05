@@ -12,7 +12,7 @@ public class FactionItems {
 		ItemMeta TestMeta = Test.getItemMeta();
 
 		// Set Lore/Name/Anything Else here
-		TestMeta.setDisplayName("Create | Gang");
+		TestMeta.setDisplayName("Create | Faction");
 
 		// Append the Meta to the Item
 		Test.setItemMeta(TestMeta);

@@ -20,24 +20,26 @@ public class FactionsListEvents implements Listener {
 
 		Player p = (Player) ev.getWhoClicked();
 
-		int i = FactionsHandler.getLoadedFactions().size();
-		int j = (int) Math.ceil(i / 45.0);
-		
-		if (ev.getCurrentItem() != null) {
-			if (ev.getInventory().getTitle().contains(FactionsList.Title)) {
-				
-				String[] s1 = ChatColor.stripColor(ev.getClickedInventory().getTitle()).split("#");
-				String s2 = s1[1];
-				
-				if (ev.getCurrentItem().equals(FactionItems.ArrowForward())) {
-					if (Integer.parseInt(s2) + 1 <= j) {
-						p.openInventory(FactionsList.factionsList(Integer.parseInt(s2) + 1));
-					}
-				}
+		if (FactionsHandler.getLoadedFactions() != null) {
+			int i = FactionsHandler.getLoadedFactions().size();
+			int j = (int) Math.ceil(i / 45.0);
 
-				if (ev.getCurrentItem().equals(FactionItems.ArrowBack())) {
-					if (Integer.parseInt(s2) > 1) {
-						p.openInventory(FactionsList.factionsList(Integer.parseInt(s2) - 1));
+			if (ev.getCurrentItem() != null) {
+				if (ev.getInventory().getTitle().contains(FactionsList.Title)) {
+
+					String[] s1 = ChatColor.stripColor(ev.getClickedInventory().getTitle()).split("#");
+					String s2 = s1[1];
+
+					if (ev.getCurrentItem().equals(FactionItems.ArrowForward())) {
+						if (Integer.parseInt(s2) + 1 <= j) {
+							p.openInventory(FactionsList.factionsList(Integer.parseInt(s2) + 1));
+						}
+					}
+
+					if (ev.getCurrentItem().equals(FactionItems.ArrowBack())) {
+						if (Integer.parseInt(s2) > 1) {
+							p.openInventory(FactionsList.factionsList(Integer.parseInt(s2) - 1));
+						}
 					}
 				}
 			}

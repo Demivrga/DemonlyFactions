@@ -198,12 +198,56 @@ public class FactionsHandler {
 
 		return true;
 	}
+	
+	// Adding a member to the faction
+	public static boolean addFactionInvite(UUID uuid, String FactionName) {
+		if ((factions == null) && (factions.isEmpty())) {
+			return false;
+		}
+		if (getFaction(FactionName) == null) {
+			return false;
+		}
+		FactionsManager f = getFaction(FactionName);
+		if (f.getFactionInvites() != null) {
+			if (f.getFactionInvites().contains(uuid)) {
+				return false;
+			}
+		}
+
+		List<String> invites = f.getFactionInvites();
+		String suuid = uuid.toString();
+		invites.add(suuid);
+		f.setFactionInvites(invites);
+
+		return true;
+	}
+
+	// Removing a faction member
+	public static boolean removeFactionInvite(UUID uuid, String FactionName) {
+		if ((factions == null) && (factions.isEmpty())) {
+			return false;
+		}
+		if (getFaction(FactionName) == null) {
+			return false;
+		}
+		FactionsManager f = getFaction(FactionName);
+		if (!f.getFactionInvites().contains(uuid)) {
+			return false;
+		}
+
+		List<String> invites = f.getFactionInvites();
+		invites.remove(uuid);
+		f.setFactionMembersUUID(invites);
+
+		return true;
+	}
 
 	// Load Factions Method
 	public static boolean loadFaction(String FactionName) {
 		FactionsManager fm = new FactionsManager();
 		List<String> members = new ArrayList<String>();
 		List<String> mods = new ArrayList<String>();
+		List<String> invites = new ArrayList<String>();
 		String name = null;
 		UUID owneruuid = null;
 		int money = 0;
@@ -224,6 +268,9 @@ public class FactionsHandler {
 				if (factionfile.contains("Faction.members")) {
 					members.addAll(factionfile.getStringList("Faction.members"));
 				}
+				if(factionfile.contains("Faction.invites")) {
+					invites.addAll(factionfile.getStringList("Faction.invites"));
+				}
 				if (factionfile.contains("Faction.mods")) {
 					mods.addAll(factionfile.getStringList("Faction.mods"));
 				}
@@ -234,6 +281,7 @@ public class FactionsHandler {
 		fm.setFactionMembersUUID(members);
 		fm.setFactionOwner(owneruuid);
 		fm.setFactionMoney(money);
+		fm.setFactionInvites(invites);
 		addFaction(FactionName, fm);
 
 		return true;

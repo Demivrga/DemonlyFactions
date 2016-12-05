@@ -12,6 +12,7 @@ public class FactionsManager {
 	private int factionMoney;
 	private List<String> factionMembersUUID;
 	private List<String> factionMods;
+	private List<String> factionInvites;
 	
 	
 	// These are our methods for getting faction information.
@@ -43,6 +44,10 @@ public class FactionsManager {
 		return this.factionMods;
 	}
 	
+	public List<String> getFactionInvites() {
+		return this.factionInvites;
+	}
+	
 	
 	// These are our methods for setting faction information.
 	public void setFactionName(String name) {
@@ -51,6 +56,10 @@ public class FactionsManager {
 	
 	public void setFactionOwner(UUID uuid) {
 		this.factionOwnerUUID = uuid;
+	}
+	
+	public void setFactionSymbol(String symbol) {
+		this.factionSymbol = symbol;
 	}
 	
 	public void setFactionMoney(int money) {
@@ -63,6 +72,10 @@ public class FactionsManager {
 	
 	public void setFactionModsUUID(List<String> mods) {
 		this.factionMods = mods;
+	}
+	
+	public void setFactionInvites(List<String> invites) {
+		this.factionInvites = invites;
 	}
 
 }

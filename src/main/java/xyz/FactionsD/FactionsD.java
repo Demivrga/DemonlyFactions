@@ -31,6 +31,7 @@ public class FactionsD extends JavaPlugin {
 
 		// Registering our commands
 		this.getCommand("faction").setExecutor(new Faction());
+		this.getCommand("create").setExecutor(new Faction());
 
 		// Let's find/create our Factions Data Folder
 		File folder = new File(getDataFolder(), "Factions");
@@ -57,42 +58,58 @@ public class FactionsD extends JavaPlugin {
 
 	public void saveFactions() {
 
-		for (FactionsManager f : FactionsHandler.getLoadedFactions()) {
-			File file = new File(getDataFolder(), "Factions//" + f.getFactionName() + ".yml");
-			if (!file.exists()) {
+		if (FactionsHandler.getLoadedFactions() != null) {
+			for (FactionsManager f : FactionsHandler.getLoadedFactions()) {
+				File folder = new File(getDataFolder(), "Factions");
+				File file = new File(getDataFolder(), "Factions//" + f.getFactionName() + ".yml");
+
+				// Checking if the DataFolder even exists.
+				if (!folder.exists()) {
+					folder.mkdirs();
+				}
+
+				// Checking if the DatFile even exists.
+				if (!file.exists()) {
+					try {
+						file.createNewFile();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+				// Our saving Method for saving each file.
+				YamlConfiguration factionfile = YamlConfiguration.loadConfiguration(file);
+				if (f.getFactionName() != null) {
+					factionfile.set("Faction.name", f.getFactionName());
+				}
+
+				if (f.getFactionOwnerUUID() != null) {
+					factionfile.set("Faction.owner", f.getFactionOwnerUUID().toString());
+				}
+
+				if (f.getFactionModsUUID() != null) {
+					factionfile.set("Faction.mods", f.getFactionModsUUID());
+				}
+
+				if (f.getFactionMembersUUID() != null) {
+					factionfile.set("Faction.members", f.getFactionMembersUUID());
+				}
+				if (f.getFactionInvites() != null) {
+					factionfile.set("Faction.invites", f.getFactionInvites());
+				}
+				factionfile.set("Faction.money", f.getFactionMoney());
+
+				// Let's save our file now with all the new healthy information.
 				try {
-					file.createNewFile();
+					factionfile.save(file);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-
-			YamlConfiguration factionfile = YamlConfiguration.loadConfiguration(file);
-			if (f.getFactionName() != null) {
-				factionfile.set("Faction.name", f.getFactionName());
-			}
-
-			if (f.getFactionOwnerUUID() != null) {
-				factionfile.set("Faction.owner", f.getFactionOwnerUUID().toString());
-			}
-
-			if (f.getFactionModsUUID() != null) {
-				factionfile.set("Faction.mods", f.getFactionModsUUID().toString());
-			}
-
-			if (f.getFactionMembersUUID() != null) {
-				factionfile.set("Faction.members", f.getFactionMembersUUID().toString());
-			}
-			factionfile.set("Faction.money", f.getFactionMoney());
-
-			try {
-				factionfile.save(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
+	// Our method for loading the Factions.
 	public void loadFactions() {
 		File[] files = new File(getDataFolder(), "Factions").listFiles();
 		File[] arrayOfFile1;

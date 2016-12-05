@@ -28,12 +28,14 @@ public class FactionsList {
 		int last = 45 * page;
 		int i = 1;
 
-		for (FactionsManager fm : FactionsHandler.getLoadedFactions()) {
+		if (FactionsHandler.getLoadedFactions() !=null) {
+			for (FactionsManager fm : FactionsHandler.getLoadedFactions()) {
 
-			if ((i >= first) && (i <= last)) {
-				list.addItem(new ItemStack[] { FactionItems.factionItem(fm.getFactionName()) });
+				if ((i >= first) && (i <= last)) {
+					list.addItem(new ItemStack[] { FactionItems.factionItem(fm.getFactionName()) });
+				}
+				i++;
 			}
-			i++;
 		}
 
 		list.setItem(50, FactionItems.ArrowForward());
