@@ -10,7 +10,7 @@ import xyz.FactionsD.menu.FactionInvitesMenu;
 import xyz.FactionsD.menu.FactionsListMenu;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 
-public class FactionsLessEvents implements Listener {
+public class FactionNoneEvents implements Listener {
 
 	@EventHandler
 	public void MenuActions(InventoryClickEvent ev) {

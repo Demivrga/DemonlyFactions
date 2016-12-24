@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.FactionsD.commands.Developer;
 import xyz.FactionsD.commands.Faction;
 import xyz.FactionsD.events.FactionMenuMoveItems;
-import xyz.FactionsD.events.faction.FactionsLessEvents;
+import xyz.FactionsD.events.faction.FactionNoneEvents;
 import xyz.FactionsD.events.faction.FactionsListEvents;
 import xyz.FactionsD.events.faction.members.FactionMemberEvents;
 import xyz.FactionsD.factions.FactionsHandler;
@@ -29,7 +29,7 @@ public class FactionsD extends JavaPlugin {
 		// Registering all of our Events
 		pm.registerEvents(new FactionMenuMoveItems(), this);
 		pm.registerEvents(new FactionsListEvents(), this);
-		pm.registerEvents(new FactionsLessEvents(), this);
+		pm.registerEvents(new FactionNoneEvents(), this);
 		pm.registerEvents(new FactionMemberEvents(), this);
 
 		// Registering our commands
