@@ -26,11 +26,15 @@ public class FactionItems {
 	
 	public static ItemStack factionCreate() {
 
-		ItemStack Test = new ItemStack(Material.WORKBENCH);
+		ItemStack Test = new ItemStack(Material.ANVIL);
 		ItemMeta TestMeta = Test.getItemMeta();
 
 		// Set Lore/Name/Anything Else here
-		TestMeta.setDisplayName("Create | Faction");
+		TestMeta.setDisplayName(MessageUtil.translate("&4Create a Faction"));
+
+		List<String> lore = new ArrayList<String>();
+		lore.add(MessageUtil.translate("&7Create your own faction!"));
+		TestMeta.setLore(lore);
 
 		// Append the Meta to the Item
 		Test.setItemMeta(TestMeta);
@@ -45,7 +49,11 @@ public class FactionItems {
 		ItemMeta TestMeta = Test.getItemMeta();
 
 		// Set Lore/Name/Anything Else here
-		TestMeta.setDisplayName("Factions List");
+		TestMeta.setDisplayName(MessageUtil.translate("&aView Factions"));
+
+		List<String> lore = new ArrayList<String>();
+		lore.add(MessageUtil.translate("&7View currently functioning Factions"));
+		TestMeta.setLore(lore);
 
 		// Append the Meta to the Item
 		Test.setItemMeta(TestMeta);
@@ -56,12 +64,16 @@ public class FactionItems {
 	
 	public static ItemStack factionInvites() {
 
-		ItemStack Test = new ItemStack(Material.BREWING_STAND_ITEM);
+		ItemStack Test = new ItemStack(Material.VINE);
 		ItemMeta TestMeta = Test.getItemMeta();
 
 		// Set Lore/Name/Anything Else here
-		TestMeta.setDisplayName("Join | Factions");
+		TestMeta.setDisplayName(MessageUtil.translate("&bFaction Invites"));
 
+		List<String> lore = new ArrayList<String>();
+		lore.add(MessageUtil.translate("&7View which factions have invited you"));
+		TestMeta.setLore(lore);
+		
 		// Append the Meta to the Item
 		Test.setItemMeta(TestMeta);
 
@@ -78,9 +90,6 @@ public class FactionItems {
 		TestMeta.setDisplayName(factionname);
 		
 		List<String> lore = new ArrayList<String>();
-		lore.add(MessageUtil.translate("&fFaction Leader: "+owner));
-		lore.add(MessageUtil.translate("&fFaction Money: "));
-		lore.add(MessageUtil.translate("&fFaction MOTD: "));
 		TestMeta.setLore(lore);
 
 		// Append the Meta to the Item
@@ -130,6 +139,38 @@ public class FactionItems {
 
 		// Set Lore/Name/Anything Else here
 		ArrowForwardMeta.setDisplayName("Return");
+
+		// Append the Meta to the Item
+		ArrowForward.setItemMeta(ArrowForwardMeta);
+
+		// Return the Item
+		return ArrowForward;
+	}
+	
+	public static ItemStack factionLeave() {
+
+		// Create the ItemStack and get the ItemMeta
+		ItemStack ArrowForward = new ItemStack(Material.NETHER_STAR);
+		ItemMeta ArrowForwardMeta = ArrowForward.getItemMeta();
+
+		// Set Lore/Name/Anything Else here
+		ArrowForwardMeta.setDisplayName("Leave Faction");
+
+		// Append the Meta to the Item
+		ArrowForward.setItemMeta(ArrowForwardMeta);
+
+		// Return the Item
+		return ArrowForward;
+	}
+	
+	public static ItemStack areYouSure() {
+
+		// Create the ItemStack and get the ItemMeta
+		ItemStack ArrowForward = new ItemStack(Material.BARRIER);
+		ItemMeta ArrowForwardMeta = ArrowForward.getItemMeta();
+
+		// Set Lore/Name/Anything Else here
+		ArrowForwardMeta.setDisplayName("Are you sure?");
 
 		// Append the Meta to the Item
 		ArrowForward.setItemMeta(ArrowForwardMeta);

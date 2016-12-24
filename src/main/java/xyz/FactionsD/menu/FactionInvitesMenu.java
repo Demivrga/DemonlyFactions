@@ -31,7 +31,7 @@ public class FactionInvitesMenu {
 
 		if (FactionsHandler.getLoadedFactions() != null) {
 			for (FactionsManager fm : FactionsHandler.getLoadedFactions()) {
-				if (fm.getFactionInvites().contains(p.getUniqueId())) {
+				if (fm.getFactionInvites().contains(p.getUniqueId().toString())) {
 
 					if ((i >= first) && (i <= last)) {
 						list.addItem(new ItemStack[] { FactionItems.factionList(fm.getFactionName(), "") });

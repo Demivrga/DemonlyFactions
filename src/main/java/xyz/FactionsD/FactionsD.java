@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import xyz.FactionsD.commands.Developer;
 import xyz.FactionsD.commands.Faction;
+import xyz.FactionsD.events.FactionInvitesEvents;
 import xyz.FactionsD.events.FactionMenuMoveItems;
 import xyz.FactionsD.events.faction.FactionNoneEvents;
 import xyz.FactionsD.events.faction.FactionsListEvents;
@@ -31,11 +32,16 @@ public class FactionsD extends JavaPlugin {
 		pm.registerEvents(new FactionsListEvents(), this);
 		pm.registerEvents(new FactionNoneEvents(), this);
 		pm.registerEvents(new FactionMemberEvents(), this);
+		pm.registerEvents(new FactionInvitesEvents(), this);
 
 		// Registering our commands
 		this.getCommand("faction").setExecutor(new Faction());
 		this.getCommand("developer").setExecutor(new Developer());
-
+		
+		// Configuration Files
+		saveDefaultConfig();
+		saveResource("messages.yml", true);
+		
 		// Let's find/create our Factions Data Folder
 		File folder = new File(getDataFolder(), "Factions");
 		if (!folder.exists()) {

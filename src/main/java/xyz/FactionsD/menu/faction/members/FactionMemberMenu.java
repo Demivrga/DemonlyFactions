@@ -15,6 +15,7 @@ public class FactionMemberMenu {
 		
 		inv.setItem(13, FactionItems.factionInfo("&5&l"+factionname));
 		inv.setItem(49, FactionItems.factionsView());
+		inv.setItem(53, FactionItems.factionLeave());
 		
 		return inv;
 	}

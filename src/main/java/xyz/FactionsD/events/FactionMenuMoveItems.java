@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 
+import xyz.FactionsD.menu.FactionInvitesMenu;
 import xyz.FactionsD.menu.FactionsListMenu;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 import xyz.FactionsD.menu.faction.members.FactionMemberMenu;
@@ -28,6 +29,9 @@ public class FactionMenuMoveItems implements Listener {
 		if (ev.getInventory().getTitle().contains(FactionsListMenu.Title)) {
 			ev.setCancelled(true);
 		}
+		if (ev.getInventory().getTitle().contains(FactionInvitesMenu.Title)) {
+			ev.setCancelled(true);
+		}
 	}
 	
 	@EventHandler
@@ -45,6 +49,9 @@ public class FactionMenuMoveItems implements Listener {
 			ev.setCancelled(true);
 		}
 		if (ev.getInventory().getTitle().contains(FactionsListMenu.Title)) {
+			ev.setCancelled(true);
+		}
+		if (ev.getInventory().getTitle().contains(FactionInvitesMenu.Title)) {
 			ev.setCancelled(true);
 		}
 	}
