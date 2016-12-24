@@ -1,15 +1,16 @@
 package xyz.FactionsD.menu;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import xyz.FactionsD.factions.FactionsHandler;
 import xyz.FactionsD.factions.FactionsManager;
-import xyz.FactionsD.menu.items.FactionItems;
+import xyz.FactionsD.items.FactionItems;
 import xyz.FactionsD.util.MessageUtil;
 
-public class FactionsList {
+public class FactionsListMenu {
 
 	public static String Title = MessageUtil.translate("&7&lFactions&f - List " + "#");
 
@@ -30,15 +31,18 @@ public class FactionsList {
 
 		if (FactionsHandler.getLoadedFactions() !=null) {
 			for (FactionsManager fm : FactionsHandler.getLoadedFactions()) {
+				
+				Player owner = Bukkit.getPlayer(fm.getFactionOwnerUUID());
 
 				if ((i >= first) && (i <= last)) {
-					list.addItem(new ItemStack[] { FactionItems.factionItem(fm.getFactionName()) });
+					list.addItem(new ItemStack[] { FactionItems.factionList(fm.getFactionName(), "&5&l"+owner.getName()+"&r") });
 				}
 				i++;
 			}
 		}
 
 		list.setItem(50, FactionItems.ArrowForward());
+		list.setItem(49, FactionItems.Return());
 		list.setItem(48, FactionItems.ArrowBack());
 
 		return list;

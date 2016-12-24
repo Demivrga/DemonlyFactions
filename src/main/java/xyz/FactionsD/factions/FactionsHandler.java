@@ -57,12 +57,12 @@ public class FactionsHandler {
 		}
 		for (FactionsManager fm : factions.values()) {
 			if (fm.getFactionMembersUUID() != null) {
-				if (fm.getFactionMembersUUID().contains(uuid)) {
+				if (fm.getFactionMembersUUID().contains(uuid.toString())) {
 					return fm.getFactionName();
 				}
 			}
 			if (fm.getFactionModsUUID() != null) {
-				if (fm.getFactionModsUUID().contains(uuid)) {
+				if (fm.getFactionModsUUID().contains(uuid.toString())) {
 					return fm.getFactionName();
 				}
 			}
@@ -79,7 +79,7 @@ public class FactionsHandler {
 		FactionsManager f = getFaction(FactionName);
 
 		if (f.getFactionModsUUID() != null) {
-			if (f.getFactionModsUUID().contains(uuid)) {
+			if (f.getFactionModsUUID().contains(uuid.toString())) {
 				rank = "Mod";
 			}
 		}
@@ -114,7 +114,7 @@ public class FactionsHandler {
 		}
 		FactionsManager f = getFaction(FactionName);
 		if (f.getFactionMembersUUID() != null) {
-			if (f.getFactionMembersUUID().contains(uuid)) {
+			if (f.getFactionMembersUUID().contains(uuid.toString())) {
 				return false;
 			}
 		}
@@ -136,17 +136,17 @@ public class FactionsHandler {
 			return false;
 		}
 		FactionsManager f = getFaction(FactionName);
-		if (f.getFactionModsUUID().contains(uuid)) {
+		if (f.getFactionModsUUID().contains(uuid.toString())) {
 			List<String> mods = f.getFactionModsUUID();
 			mods.remove(uuid);
 			f.setFactionModsUUID(mods);
 		}
-		if (!f.getFactionMembersUUID().contains(uuid)) {
+		if (!f.getFactionMembersUUID().contains(uuid.toString())) {
 			return false;
 		}
 
 		List<String> members = f.getFactionMembersUUID();
-		members.remove(uuid);
+		members.remove(uuid.toString());
 		f.setFactionMembersUUID(members);
 
 		return true;
@@ -162,7 +162,7 @@ public class FactionsHandler {
 		}
 		FactionsManager f = getFaction(FactionName);
 		if (f.getFactionModsUUID() != null) {
-			if (f.getFactionModsUUID().contains(uuid)) {
+			if (f.getFactionModsUUID().contains(uuid.toString())) {
 				return false;
 			}
 		}
@@ -184,15 +184,15 @@ public class FactionsHandler {
 			return false;
 		}
 		FactionsManager f = getFaction(FactionName);
-		if (!f.getFactionModsUUID().contains(uuid)) {
+		if (!f.getFactionModsUUID().contains(uuid.toString())) {
 			return false;
 		}
 
 		List<String> mods = f.getFactionModsUUID();
-		mods.remove(uuid);
+		mods.remove(uuid.toString());
 		f.setFactionModsUUID(mods);
 
-		if (!f.getFactionMembersUUID().contains(uuid)) {
+		if (!f.getFactionMembersUUID().contains(uuid.toString())) {
 			addFactionMember(uuid, FactionName);
 		}
 
@@ -209,7 +209,7 @@ public class FactionsHandler {
 		}
 		FactionsManager f = getFaction(FactionName);
 		if (f.getFactionInvites() != null) {
-			if (f.getFactionInvites().contains(uuid)) {
+			if (f.getFactionInvites().contains(uuid.toString())) {
 				return false;
 			}
 		}
@@ -231,15 +231,111 @@ public class FactionsHandler {
 			return false;
 		}
 		FactionsManager f = getFaction(FactionName);
-		if (!f.getFactionInvites().contains(uuid)) {
+		if (!f.getFactionInvites().contains(uuid.toString())) {
 			return false;
 		}
 
 		List<String> invites = f.getFactionInvites();
-		invites.remove(uuid);
+		invites.remove(uuid.toString());
 		f.setFactionMembersUUID(invites);
 
 		return true;
+	}
+	
+	// Listing out the Faction Owner
+	public static UUID listFactionOwner(String name) {
+		if ((factions == null) || (factions.isEmpty())) {
+			return null;
+		}
+		for (FactionsManager fm : factions.values()) {
+			if (fm.getFactionName().equalsIgnoreCase(name)) {
+				return fm.getFactionOwnerUUID();
+			}
+		}
+		return null;
+	}
+	
+	// Listing out the Faction Owner
+	public static List<String> listFactionMembers(String name) {
+		if ((factions == null) || (factions.isEmpty())) {
+			return null;
+		}
+		for (FactionsManager fm : factions.values()) {
+			if (fm.getFactionName().equalsIgnoreCase(name)) {
+				return fm.getFactionMembersUUID();
+			}
+		}
+		return null;
+	}
+	
+	// Listing out the Faction Owner
+	public static int listFactionMoney(String name) {
+		if ((factions == null) || (factions.isEmpty())) {
+			return 0;
+		}
+		for (FactionsManager fm : factions.values()) {
+			if (fm.getFactionName().equalsIgnoreCase(name)) {
+				return fm.getFactionMoney();
+			}
+		}
+		return 0;
+	}
+	
+	// Listing out the Faction Owner
+	public static List<String> listFactionMods(String name) {
+		if ((factions == null) || (factions.isEmpty())) {
+			return null;
+		}
+		for (FactionsManager fm : factions.values()) {
+			if (fm.getFactionName().equalsIgnoreCase(name)) {
+				return fm.getFactionModsUUID();
+			}
+		}
+		return null;
+	}
+	
+	// Listing out the Faction Owner
+	public static List<String> listFactionInvites(String name) {
+		if ((factions == null) || (factions.isEmpty())) {
+			return null;
+		}
+		for (FactionsManager fm : factions.values()) {
+			if (fm.getFactionName().equalsIgnoreCase(name)) {
+				return fm.getFactionInvites();
+			}
+		}
+		return null;
+	}
+
+	// Deleting a Faction
+	public static boolean deleteFaction(String FactionName) {
+
+		if (getLoadedFactions() == null) {
+			return false;
+		}
+
+		for (FactionsManager faction : getLoadedFactions()) {
+
+
+			if (faction.getFactionName().equals(FactionName)) {
+				
+				File[] files = new File(FactionsD.pl().getDataFolder(), "Factions").listFiles();
+				File[] arrayofFile1;
+				int j = (arrayofFile1 = files).length;
+				for (int i = 0; i < j; i++) {
+					File file = arrayofFile1[i];
+					if (file.getName().equalsIgnoreCase(FactionName + ".yml")) {
+						file.delete();
+					}
+				}
+				
+				// removing the faction from the loaded factions.
+				getLoadedFactions().remove(faction);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	// Load Factions Method
@@ -279,6 +375,7 @@ public class FactionsHandler {
 
 		fm.setFactionName(name);
 		fm.setFactionMembersUUID(members);
+		fm.setFactionModsUUID(mods);
 		fm.setFactionOwner(owneruuid);
 		fm.setFactionMoney(money);
 		fm.setFactionInvites(invites);
