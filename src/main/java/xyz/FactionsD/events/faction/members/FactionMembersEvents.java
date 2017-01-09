@@ -1,4 +1,4 @@
-package xyz.FactionsD.events;
+package xyz.FactionsD.events.faction.members;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,13 +10,12 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 
 import xyz.FactionsD.factions.FactionsHandler;
-import xyz.FactionsD.factions.FactionsManager;
 import xyz.FactionsD.items.FactionItems;
-import xyz.FactionsD.menu.FactionInvitesMenu;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 import xyz.FactionsD.menu.faction.members.FactionMemberMenu;
+import xyz.FactionsD.menu.faction.members.FactionMembersMenu;
 
-public class FactionInvitesEvents implements Listener {
+public class FactionMembersEvents implements Listener {
 
 	@EventHandler
 	public void MenuActions(InventoryClickEvent ev) {
@@ -24,24 +23,25 @@ public class FactionInvitesEvents implements Listener {
 		Player p = (Player) ev.getWhoClicked();
 
 		if (ev.getCurrentItem() != null) {
-			if (ev.getInventory().getTitle().contains(FactionInvitesMenu.Title)) {
+			if (ev.getInventory().getTitle().contains(FactionMembersMenu.Title)) {
 
 				String[] s1 = ChatColor.stripColor(ev.getClickedInventory().getTitle()).split("#");
 				String s2 = s1[1];
 
 				if (FactionsHandler.getLoadedFactions() != null) {
-					int i = FactionsHandler.intFactionInvites(p.getUniqueId());
+					int i = FactionsHandler.listFactionMembers(FactionsHandler.getPlayersFaction(p.getUniqueId())).size();
 					int j = (int) Math.ceil(i / 45.0);
 
 					if (ev.getCurrentItem().equals(FactionItems.ArrowForward())) {
 						if (Integer.parseInt(s2) + 1 <= j) {
-							p.openInventory(FactionInvitesMenu.factionsInvites(p, Integer.parseInt(s2) + 1));
+							p.openInventory(FactionMembersMenu.factionsList(Integer.parseInt(s2) + 1, FactionsHandler.getPlayersFaction(p.getUniqueId())));
 						}
 					}
 
 					if (ev.getCurrentItem().equals(FactionItems.ArrowBack())) {
 						if (Integer.parseInt(s2) > 1) {
-							p.openInventory(FactionInvitesMenu.factionsInvites(p, Integer.parseInt(s2) - 1));
+							p.openInventory(FactionMembersMenu.factionsList(Integer.parseInt(s2) - 1, FactionsHandler.getPlayersFaction(p.getUniqueId())));
+
 						}
 					}
 				}
@@ -70,36 +70,6 @@ public class FactionInvitesEvents implements Listener {
 						p.openInventory(FactionNoneMenu.noFaction());
 					}
 				}
-
-				if (ev.getCurrentItem().getType().equals(Material.EYE_OF_ENDER)) {
-
-					String Faction = ev.getCurrentItem().getItemMeta().getDisplayName();
-					String Faction2 = ChatColor.stripColor(Faction);
-
-					if (FactionsHandler.getFaction(Faction2) != null) {
-						if (FactionsHandler.listFactionInvites(Faction2).contains(p.getUniqueId().toString())) {
-
-							p.sendMessage("Joining the Faction: " + Faction2);
-
-							for (FactionsManager invfm : FactionsHandler.getLoadedFactions()) {
-
-								if (invfm.getFactionInvites().contains(p.getUniqueId().toString())) {
-									invfm.getFactionInvites().remove(p.getUniqueId().toString());
-								}
-							}
-
-							FactionsHandler.addFactionMember(p.getUniqueId(), Faction2);
-
-							p.openInventory(FactionMemberMenu.factionMember(Faction2));
-
-						} else {
-							p.openInventory(FactionInvitesMenu.factionsInvites(p, Integer.parseInt(s2)));
-						}
-					} else {
-						p.openInventory(FactionInvitesMenu.factionsInvites(p, Integer.parseInt(s2)));
-						p.sendMessage("This faction has already fallen!");
-					}
-				}
 			}
 		}
 	}
@@ -109,7 +79,7 @@ public class FactionInvitesEvents implements Listener {
 
 		ItemStack air = new ItemStack(Material.AIR);
 
-		if (ev.getInventory().getTitle().equals(FactionInvitesMenu.Title + "1")) {
+		if (ev.getInventory().getTitle().equals(FactionMembersMenu.Title + "1")) {
 			ev.getInventory().setItem(48, air);
 		}
 	}

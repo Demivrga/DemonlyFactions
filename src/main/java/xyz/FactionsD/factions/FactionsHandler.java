@@ -306,6 +306,21 @@ public class FactionsHandler {
 		}
 		return null;
 	}
+	
+	// Listing out the Faction Owner
+	public static int intFactionInvites(UUID uuid) {
+		if ((factions == null) || (factions.isEmpty())) {
+			return 0;
+		}
+		for (FactionsManager fm : factions.values()) {
+			int i = 0;
+			if (fm.getFactionInvites().contains(uuid.toString())) {
+				i++;
+			}
+			return i;
+		}
+		return 0;
+	}
 
 	// Deleting a Faction
 	public static boolean deleteFaction(String FactionName) {
@@ -341,11 +356,13 @@ public class FactionsHandler {
 	// Load Factions Method
 	public static boolean loadFaction(String FactionName) {
 		FactionsManager fm = new FactionsManager();
+		UUID owneruuid = null;
+		String name = null;
+		String Moto = null;
+		String Symbol = null;
 		List<String> members = new ArrayList<String>();
 		List<String> mods = new ArrayList<String>();
 		List<String> invites = new ArrayList<String>();
-		String name = null;
-		UUID owneruuid = null;
 		int money = 0;
 
 		File[] files = new File(FactionsD.pl().getDataFolder(), "Factions").listFiles();
@@ -373,10 +390,12 @@ public class FactionsHandler {
 			}
 		}
 
+		fm.setFactionOwner(owneruuid);
 		fm.setFactionName(name);
+		fm.setFactionMoto(Moto);
+		fm.setFactionSymbol(Symbol);
 		fm.setFactionMembersUUID(members);
 		fm.setFactionModsUUID(mods);
-		fm.setFactionOwner(owneruuid);
 		fm.setFactionMoney(money);
 		fm.setFactionInvites(invites);
 		addFaction(FactionName, fm);

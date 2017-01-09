@@ -9,6 +9,7 @@ public class FactionsManager {
 	private String factionOwner;
 	private UUID factionOwnerUUID;
 	private String factionSymbol;
+	private String factionMoto;
 	private int factionMoney;
 	private List<String> factionMembersUUID;
 	private List<String> factionMods;
@@ -30,6 +31,10 @@ public class FactionsManager {
 	
 	public String getFactionSymbol() {
 		return this.factionSymbol;
+	}
+	
+	public String getFactionMoto() {
+		return this.factionMoto;
 	}
 	
 	public int getFactionMoney(){
@@ -60,6 +65,10 @@ public class FactionsManager {
 	
 	public void setFactionSymbol(String symbol) {
 		this.factionSymbol = symbol;
+	}
+	
+	public void setFactionMoto(String Moto) {
+		this.factionMoto = Moto;
 	}
 	
 	public void setFactionMoney(int money) {

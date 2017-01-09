@@ -1,7 +1,6 @@
 package xyz.FactionsD.menu;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,13 +28,11 @@ public class FactionsListMenu {
 		int last = 45 * page;
 		int i = 1;
 
-		if (FactionsHandler.getLoadedFactions() !=null) {
+		if (FactionsHandler.getLoadedFactions() !=null) {			
 			for (FactionsManager fm : FactionsHandler.getLoadedFactions()) {
 				
-				Player owner = Bukkit.getPlayer(fm.getFactionOwnerUUID());
-
 				if ((i >= first) && (i <= last)) {
-					list.addItem(new ItemStack[] { FactionItems.factionList(fm.getFactionName(), "&5&l"+owner.getName()+"&r") });
+					list.addItem(new ItemStack[] { FactionItems.factionList(fm.getFactionName(), "") });
 				}
 				i++;
 			}

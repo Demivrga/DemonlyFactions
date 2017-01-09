@@ -29,6 +29,12 @@ public class FactionNoneEvents implements Listener {
 				if (ev.getCurrentItem().equals(FactionItems.factionInvites())) {
 					p.openInventory(FactionInvitesMenu.factionsInvites(p, 1));
 				}
+				
+				if(ev.getCurrentItem().equals(FactionItems.factionCreate())) {
+					
+					// Faction Factory
+					
+				}
 			}
 		}
 	}

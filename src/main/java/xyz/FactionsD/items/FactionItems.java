@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import xyz.FactionsD.util.MessageUtil;
 
@@ -34,6 +36,26 @@ public class FactionItems {
 
 		List<String> lore = new ArrayList<String>();
 		lore.add(MessageUtil.translate("&7Create your own faction!"));
+		TestMeta.setLore(lore);
+
+		// Append the Meta to the Item
+		Test.setItemMeta(TestMeta);
+
+		// Return the Item
+		return Test;
+	}
+	
+	public static ItemStack factionPaperCreate() {
+
+		ItemStack Test = new ItemStack(Material.PAPER);
+		ItemMeta TestMeta = Test.getItemMeta();
+
+		// Set Lore/Name/Anything Else here
+		TestMeta.setDisplayName(MessageUtil.translate("&aType Faction Name"));
+
+		List<String> lore = new ArrayList<String>();
+		lore.add(MessageUtil.translate("&7Type in the main box to name your faction"));
+		lore.add(MessageUtil.translate("&7Click the renamed item to finalize your faction name"));
 		TestMeta.setLore(lore);
 
 		// Append the Meta to the Item
@@ -177,5 +199,46 @@ public class FactionItems {
 
 		// Return the Item
 		return ArrowForward;
+	}
+	
+	public static ItemStack factionMembers() {
+
+		// Create the ItemStack and get the ItemMeta
+		ItemStack Test = new ItemStack(Material.FIREBALL);
+		ItemMeta TestMeta = Test.getItemMeta();
+
+		// Set Lore/Name/Anything Else here
+		TestMeta.setDisplayName(MessageUtil.translate("&8Faction Members"));
+		
+		List<String> lore = new ArrayList<String>();
+		lore.add(MessageUtil.translate("&7View your factions members"));
+		TestMeta.setLore(lore);
+
+		// Append the Meta to the Item
+		Test.setItemMeta(TestMeta);
+
+		// Return the Item
+		return Test;
+	}
+	
+	public static ItemStack factionMember(OfflinePlayer p, String name) {
+
+		// Create the ItemStack and get the ItemMeta
+		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte) 3);
+		SkullMeta skullmeta = (SkullMeta) skull.getItemMeta();
+
+		// Set Lore/Name/Anything Else here
+		skullmeta.setOwner(p.getName());
+		skullmeta.setDisplayName(name);
+
+		// Lore
+		List<String> lore = new ArrayList<String>();
+		skullmeta.setLore(lore);
+		
+		// Append the Meta to the Item
+		skull.setItemMeta(skullmeta);
+
+		// Return the Item
+		return skull;
 	}
 }

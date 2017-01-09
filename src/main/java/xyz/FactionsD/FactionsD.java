@@ -15,8 +15,10 @@ import xyz.FactionsD.events.FactionMenuMoveItems;
 import xyz.FactionsD.events.faction.FactionNoneEvents;
 import xyz.FactionsD.events.faction.FactionsListEvents;
 import xyz.FactionsD.events.faction.members.FactionMemberEvents;
+import xyz.FactionsD.events.faction.members.FactionMembersEvents;
 import xyz.FactionsD.factions.FactionsHandler;
 import xyz.FactionsD.factions.FactionsManager;
+import xyz.FactionsD.menu.FactionFactory;
 
 public class FactionsD extends JavaPlugin {
 
@@ -32,8 +34,10 @@ public class FactionsD extends JavaPlugin {
 		pm.registerEvents(new FactionsListEvents(), this);
 		pm.registerEvents(new FactionNoneEvents(), this);
 		pm.registerEvents(new FactionMemberEvents(), this);
+		pm.registerEvents(new FactionMembersEvents(), this);
 		pm.registerEvents(new FactionInvitesEvents(), this);
-
+		pm.registerEvents(new FactionFactory(), this);
+		
 		// Registering our commands
 		this.getCommand("faction").setExecutor(new Faction());
 		this.getCommand("developer").setExecutor(new Developer());
@@ -94,6 +98,14 @@ public class FactionsD extends JavaPlugin {
 
 				if (f.getFactionOwnerUUID() != null) {
 					factionfile.set("Faction.owner", f.getFactionOwnerUUID().toString());
+				}
+				
+				if(f.getFactionMoto() != null) {
+					factionfile.set("Faction.moto", f.getFactionMoto().toString());
+				}
+				
+				if(f.getFactionSymbol() != null) {
+					factionfile.set("Faction.symbol", f.getFactionSymbol().toString());
 				}
 
 				if (f.getFactionModsUUID() != null) {

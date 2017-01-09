@@ -14,6 +14,7 @@ import xyz.FactionsD.items.FactionItems;
 import xyz.FactionsD.menu.FactionsListMenu;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 import xyz.FactionsD.menu.faction.members.FactionMemberMenu;
+import xyz.FactionsD.menu.faction.members.FactionMembersMenu;
 
 public class FactionMemberEvents implements Listener {
 
@@ -27,6 +28,10 @@ public class FactionMemberEvents implements Listener {
 
 				if (ev.getCurrentItem().equals(FactionItems.factionsView())) {
 					p.openInventory(FactionsListMenu.factionsList(1));
+				}
+				
+				if(ev.getCurrentItem().equals(FactionItems.factionMembers())) {
+					p.openInventory(FactionMembersMenu.factionsList(1, FactionsHandler.getPlayersFaction(p.getUniqueId())));
 				}
 
 				if (ev.getCurrentItem().equals(FactionItems.factionLeave())) {

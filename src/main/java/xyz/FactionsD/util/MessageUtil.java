@@ -14,7 +14,7 @@ public class MessageUtil {
 	public static List<String> listTranslate(List<String> list) {
 
 		List<String> converted = new ArrayList<String>();
-
+		
 		for (String string : list) {
 			converted.add(ChatColor.translateAlternateColorCodes('&', string));
 		}

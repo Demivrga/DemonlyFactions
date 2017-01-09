@@ -14,6 +14,7 @@ public class FactionMemberMenu {
 		Inventory inv = Bukkit.createInventory(null, 54, Title);
 		
 		inv.setItem(13, FactionItems.factionInfo("&5&l"+factionname));
+		inv.setItem(24, FactionItems.factionMembers());
 		inv.setItem(49, FactionItems.factionsView());
 		inv.setItem(53, FactionItems.factionLeave());
 		

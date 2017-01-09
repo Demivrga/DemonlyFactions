@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -209,7 +210,7 @@ public class Developer implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("info")) {
 						if (FactionName != null) {
 
-							Player target = Bukkit.getPlayer(FactionsHandler.listFactionOwner(FactionName));
+							OfflinePlayer target = Bukkit.getOfflinePlayer(FactionsHandler.listFactionOwner(FactionName));
 
 							p.sendMessage(" ");
 							p.sendMessage("=-=-=-=-=-=-=-=-=-] " + FactionName + " [-=-=-=-=-=-=-=-=-=");

@@ -9,6 +9,7 @@ import xyz.FactionsD.menu.FactionInvitesMenu;
 import xyz.FactionsD.menu.FactionsListMenu;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 import xyz.FactionsD.menu.faction.members.FactionMemberMenu;
+import xyz.FactionsD.menu.faction.members.FactionMembersMenu;
 
 public class FactionMenuMoveItems implements Listener {
 	
@@ -18,6 +19,9 @@ public class FactionMenuMoveItems implements Listener {
 			ev.setCancelled(true);
 		}
 		if (ev.getInventory().getTitle().contains(FactionMemberMenu.Title)) {
+			ev.setCancelled(true);
+		}
+		if (ev.getInventory().getTitle().contains(FactionMembersMenu.Title)) {
 			ev.setCancelled(true);
 		}
 		if (ev.getInventory().getTitle().equals("Factions - Mods")) {
@@ -40,6 +44,9 @@ public class FactionMenuMoveItems implements Listener {
 			ev.setCancelled(true);
 		}
 		if (ev.getInventory().getTitle().contains(FactionMemberMenu.Title)) {
+			ev.setCancelled(true);
+		}
+		if (ev.getInventory().getTitle().contains(FactionMembersMenu.Title)) {
 			ev.setCancelled(true);
 		}
 		if (ev.getInventory().getTitle().equals("Factions - Mods")) {
