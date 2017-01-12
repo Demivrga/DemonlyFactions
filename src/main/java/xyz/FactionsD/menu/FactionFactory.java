@@ -1,8 +1,8 @@
 package xyz.FactionsD.menu;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
@@ -41,27 +41,19 @@ public class FactionFactory implements Listener {
 					} else {
 
 						AnvilGUI factionNameGUI = new AnvilGUI(p, new AnvilGUI.AnvilClickEventHandler() {
+
 							public void onAnvilClick(final AnvilClickEvent ev) {
 								if (ev.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
+
 									if (!StringUtils.containsAny(ev.getName(), "!*()\"\\';:{}[]<>,.?/~` ")) {
+
 										ev.setWillClose(true);
 										ev.setWillDestroy(true);
 
 										p.sendMessage("You've Chosen The Faction Name: " + ev.getName());
 										chosenFactionName = ev.getName();
 
-										// Creating our faction
-										List<String> mods = new ArrayList<String>();
-										List<String> invites = new ArrayList<String>();
-
-										fm.setFactionName(chosenFactionName);
-										fm.setFactionOwner(p.getUniqueId());
-										fm.setFactionInvites(invites);
-										fm.setFactionMembersUUID(mods);
-										fm.setFactionModsUUID(mods);
-										fm.setFactionMoney(0);
-
-										FactionsHandler.addFaction(fm.getFactionName(), fm);
+										createFaction(fm, chosenFactionName, p.getUniqueId(), 0);
 
 									} else {
 										p.sendMessage("ERROR: Faction can not contain any: !*()\"\\';:{}[]<>,.?/~`");
@@ -74,17 +66,27 @@ public class FactionFactory implements Listener {
 
 						try {
 							factionNameGUI.open();
-						} catch (IllegalAccessException e) {
-							e.printStackTrace();
-						} catch (InvocationTargetException e) {
-							e.printStackTrace();
-						} catch (InstantiationException e) {
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
 				}
 			}
 		}
+	}
 
+	private void createFaction(FactionsManager fm, String factionName, UUID factionOwner, int money) {
+		// Creating our faction
+		List<String> mods = new ArrayList<String>();
+		List<String> invites = new ArrayList<String>();
+
+		fm.setFactionName(factionName);
+		fm.setFactionOwner(factionOwner);
+		fm.setFactionInvites(invites);
+		fm.setFactionMembersUUID(mods);
+		fm.setFactionModsUUID(mods);
+		fm.setFactionMoney(money);
+
+		FactionsHandler.addFaction(fm.getFactionName(), fm);
 	}
 }

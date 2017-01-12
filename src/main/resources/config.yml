@@ -1,0 +1,7 @@
+# Save Faction Rate: Interval in minutes which factions are automatically saved.
+# Default save_faction_rate: 30
+# [Not Recommended]: Set to 0 to disable saving, data lose could occur.
+# Factions automatically save whenever the server shuts down/restarts.
+
+DemonlyFactions:
+    save_faction_rate: 30

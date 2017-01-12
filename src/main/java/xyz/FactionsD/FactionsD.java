@@ -1,9 +1,12 @@
 package xyz.FactionsD;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +29,11 @@ public class FactionsD extends JavaPlugin {
 	private PluginManager pm = Bukkit.getPluginManager();
 	public boolean loaded = false;
 
+	private File menuConfig;
+	private File englishConfig;
+	private FileConfiguration english;
+	private FileConfiguration menu;
+
 	public void onEnable() {
 		System.out.println("[DemonlyFactions] has been ENABLED!");
 
@@ -37,15 +45,15 @@ public class FactionsD extends JavaPlugin {
 		pm.registerEvents(new FactionMembersEvents(), this);
 		pm.registerEvents(new FactionInvitesEvents(), this);
 		pm.registerEvents(new FactionFactory(), this);
-		
+
 		// Registering our commands
 		this.getCommand("faction").setExecutor(new Faction());
 		this.getCommand("developer").setExecutor(new Developer());
-		
+
 		// Configuration Files
+		createFiles();
 		saveDefaultConfig();
-		saveResource("messages.yml", true);
-		
+
 		// Let's find/create our Factions Data Folder
 		File folder = new File(getDataFolder(), "Factions");
 		if (!folder.exists()) {
@@ -54,6 +62,9 @@ public class FactionsD extends JavaPlugin {
 
 		// Loading our factions.
 		this.loadFactions();
+
+		// Hourly save factions data
+		this.timedFactionSave();
 	}
 
 	public void onDisable() {
@@ -61,12 +72,43 @@ public class FactionsD extends JavaPlugin {
 		saveFactions();
 	}
 
-	public FactionsD() {
-		pl = this;
+	public static FileConfiguration getMenuConfig() {
+		return FactionsD.pl().menu;
 	}
 
-	public static FactionsD pl() {
-		return pl;
+	public static FileConfiguration getEnglishConfig() {
+		return FactionsD.pl().english;
+	}
+
+	private void createFiles() {
+
+		menuConfig = new File(getDataFolder(), "menu.yml");
+		englishConfig = new File(getDataFolder(), "english.yml");
+
+		if (!menuConfig.exists()) {
+			menuConfig.getParentFile().mkdirs();
+			saveResource("menu.yml", false);
+		}
+
+		if (!englishConfig.exists()) {
+			englishConfig.getParentFile().mkdirs();
+			saveResource("english.yml", false);
+		}
+
+		menu = new YamlConfiguration();
+		english = new YamlConfiguration();
+
+		try {
+			menu.load(menuConfig);
+			english.load(englishConfig);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void saveFactions() {
@@ -99,12 +141,12 @@ public class FactionsD extends JavaPlugin {
 				if (f.getFactionOwnerUUID() != null) {
 					factionfile.set("Faction.owner", f.getFactionOwnerUUID().toString());
 				}
-				
-				if(f.getFactionMoto() != null) {
+
+				if (f.getFactionMoto() != null) {
 					factionfile.set("Faction.moto", f.getFactionMoto().toString());
 				}
-				
-				if(f.getFactionSymbol() != null) {
+
+				if (f.getFactionSymbol() != null) {
 					factionfile.set("Faction.symbol", f.getFactionSymbol().toString());
 				}
 
@@ -141,5 +183,33 @@ public class FactionsD extends JavaPlugin {
 			FactionsHandler.loadFaction(name);
 		}
 		this.loaded = true;
+	}
+	
+	public FactionsD() {
+		pl = this;
+	}
+
+	public static FactionsD pl() {
+		return pl;
+	}
+
+	public void timedFactionSave() {
+		Thread t = new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					try {
+						int x = getConfig().getInt("DemonlyFactions.save_faction_rate");
+						if (!(x == 0)) {
+							Thread.sleep(1000 * 60 * x);
+							saveFactions();
+							System.out.println("[DemonlyFactions]: Saved our factions!");
+						}
+					} catch (InterruptedException ie) {
+					}
+				}
+			}
+		};
+		t.start();
 	}
 }

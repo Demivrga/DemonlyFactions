@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import xyz.FactionsD.FactionsD;
 import xyz.FactionsD.factions.FactionsHandler;
 import xyz.FactionsD.items.FactionItems;
+import xyz.FactionsD.items.faction.FactionMemberItems;
 import xyz.FactionsD.menu.FactionsListMenu;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 import xyz.FactionsD.menu.faction.members.FactionMemberMenu;
@@ -30,17 +31,17 @@ public class FactionMemberEvents implements Listener {
 					p.openInventory(FactionsListMenu.factionsList(1));
 				}
 				
-				if(ev.getCurrentItem().equals(FactionItems.factionMembers())) {
+				if(ev.getCurrentItem().equals(FactionMemberItems.factionListMembers())) {
 					p.openInventory(FactionMembersMenu.factionsList(1, FactionsHandler.getPlayersFaction(p.getUniqueId())));
 				}
 
-				if (ev.getCurrentItem().equals(FactionItems.factionLeave())) {
+				if (ev.getCurrentItem().equals(FactionMemberItems.factionMemberQuit())) {
 					
 					// Let's update to the are you sure phase.
 					ItemUpdate(ev.getInventory(), 53, FactionItems.areYouSure(), 5);
 					
 					// If not clicked after 5 seconds, revert back!
-					ItemUpdate(ev.getInventory(), 53, FactionItems.factionLeave(), 50);
+					ItemUpdate(ev.getInventory(), 53, FactionMemberItems.factionMemberQuit(), 50);
 				}
 
 				if (ev.getCurrentItem().equals(FactionItems.areYouSure())) {

@@ -1,0 +1,100 @@
+# This file will be littered with helpful information. Please adhere to it.
+# Some items information are set in previous menus.
+# Menu_Size must be in multiples of 9. IE: 9, 18, 27, 36, 45, 54.
+# Slot numbers range from 0-53.
+# Colour codes are acceptable.
+
+Items:
+    Menu:
+    # No_Faction_Menu Settings
+        No_Faction_Menu:
+            Title: "Factions - None"
+            Menu_Size: 54
+            Faction_Create:
+                material: "ANVIL"
+                name: "&4Create a Faction"
+                slot: 21
+                lore:
+                - "&7Create your own faction!"
+            Faction_List:
+                material: "EYE_OF_ENDER"
+                name: "&aView Factions"
+                slot: 22
+                lore:
+                - "&7View currently functioning factions!"
+            Faction_Invites:
+                material: "VINE"
+                name: "&bFaction Invites"
+                slot: 23
+                lore:
+                - "&7View which factions have invited you!"
+
+    # Faction_Member Menu Settings
+        Faction_Member:
+            Title: "Factions - Members"
+            Menu_Size: 54
+            Faction_Info:
+                material: "CHAINMAIL_CHESTPLATE"
+                name: "%faction%"
+                slot: 13
+                lore:
+                - "&5Faction Owner: &7%owner%"
+            Faction_Members:
+                material: "FIREWORK_CHARGE"
+                name: "&8Faction Members"
+                slot: 31
+                lore:
+                - "&7View your Factions Members"
+            Faction_Quit:
+                material: "NETHER_STAR"
+                name: "&4Faction Leave"
+                slot: 53
+                lore:
+                - "&7Leave the faction you're in."
+            Faction_List:
+                slot: 49
+
+    # Faction_Mod Menu Settings
+        Faction_Mod:
+            Title: "Factions - Owner"
+            Menu_Size: 54
+            Faction_Member_Invite:
+                slot: 30
+            Faction_Member_Kick:
+                slot: 32
+            Faction_Info:
+                slot: 13
+            Faction_Members:
+                slot: 31
+            Faction_List:
+                slot: 49
+            Faction_Quit:
+                slot: 53
+    
+    # Faction_Owner Menu Settings
+        Faction_Owner:
+            Title: "Factions - Owner"
+            Menu_Size: 54
+            Faction_Settings:
+                material: "REDSTONE_TORCH_ON"
+                name: "&4Faction Settings"
+                slot: 52
+                lore:
+                - "&7Adjust Moderator Privilages/Other settings"
+            Faction_Disband:
+                material: "NETHER_STAR"
+                name: "&4Disband Faction"
+                slot: 53
+                lore:
+                - "&7This will do the following:"
+                - "&7- Delete your Faction"
+            Faction_Member_Invite:
+                slot: 30
+            Faction_Member_Kick:
+                slot: 32
+            Faction_Info:
+                slot: 13
+            Faction_Members:
+                slot: 31
+            Faction_List:
+                slot: 49

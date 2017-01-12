@@ -31,9 +31,6 @@ public class Developer implements CommandExecutor {
 
 				}
 
-				// cmd arg0 arg1 arg2 arg3
-				// cmd length1 length2 length3
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("create")) {
 
@@ -69,7 +66,6 @@ public class Developer implements CommandExecutor {
 					}
 				}
 
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("invite")) {
 						if (!(args.length == 2)) {
@@ -112,7 +108,6 @@ public class Developer implements CommandExecutor {
 					}
 				}
 
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("join")) {
 						if (!(args.length == 2)) {
@@ -143,7 +138,6 @@ public class Developer implements CommandExecutor {
 					}
 				}
 
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("invites")) {
 						if (FactionName == null) {
@@ -170,7 +164,6 @@ public class Developer implements CommandExecutor {
 					}
 				}
 
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("disband")) {
 						if (FactionName != null) {
@@ -185,7 +178,6 @@ public class Developer implements CommandExecutor {
 					}
 				}
 
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("leave")) {
 						if (FactionName != null) {
@@ -205,12 +197,12 @@ public class Developer implements CommandExecutor {
 					}
 				}
 
-				// <><><><><><><><><><><><><><><><><>< //
 				if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("info")) {
 						if (FactionName != null) {
 
-							OfflinePlayer target = Bukkit.getOfflinePlayer(FactionsHandler.listFactionOwner(FactionName));
+							OfflinePlayer target = Bukkit
+									.getOfflinePlayer(FactionsHandler.listFactionOwner(FactionName));
 
 							p.sendMessage(" ");
 							p.sendMessage("=-=-=-=-=-=-=-=-=-] " + FactionName + " [-=-=-=-=-=-=-=-=-=");

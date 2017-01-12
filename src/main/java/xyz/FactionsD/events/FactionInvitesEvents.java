@@ -55,15 +55,15 @@ public class FactionInvitesEvents implements Listener {
 						String rank = FactionsHandler.getPlayersFactionRank(p.getUniqueId(), FactionName);
 
 						if (rank.equalsIgnoreCase("Member")) {
-							p.openInventory(FactionMemberMenu.factionMember(FactionName));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 						}
 
 						if (rank.equalsIgnoreCase("Mod")) {
-							p.openInventory(FactionMemberMenu.factionMember(FactionName));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 						}
 
 						if (rank.equalsIgnoreCase("Owner")) {
-							p.openInventory(FactionMemberMenu.factionMember(FactionName));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 						}
 
 					} else {
@@ -90,7 +90,7 @@ public class FactionInvitesEvents implements Listener {
 
 							FactionsHandler.addFactionMember(p.getUniqueId(), Faction2);
 
-							p.openInventory(FactionMemberMenu.factionMember(Faction2));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 
 						} else {
 							p.openInventory(FactionInvitesMenu.factionsInvites(p, Integer.parseInt(s2)));

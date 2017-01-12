@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import xyz.FactionsD.factions.FactionsHandler;
 import xyz.FactionsD.factions.FactionsManager;
 import xyz.FactionsD.items.FactionItems;
+import xyz.FactionsD.items.faction.FactionMemberItems;
 import xyz.FactionsD.util.MessageUtil;
 
 public class FactionMembersMenu {
@@ -18,14 +19,6 @@ public class FactionMembersMenu {
 
 	public static Inventory factionsList(int page, String factionname) {
 		Inventory list = Bukkit.createInventory(null, 54, Title + page);
-
-		// Because we only want to list 45 factions on any given page.
-		// We're going to use an equation to get the start of what
-		// faction needs to be on that page.
-
-		// 45 *(1 - 1) + 1 = 1
-		// 45 *(2 - 1) + 1 = 46
-		// 45 *(3 - 1) + 1 = 91
 
 		int first = 45 * (page - 1) + 1;
 		int last = 45 * page;
@@ -37,10 +30,11 @@ public class FactionMembersMenu {
 
 		if ((1 >= first) && (1 <= last)) {
 			if (owner.getName() != null) {
-				list.addItem(new ItemStack[] { FactionItems.factionMember(owner, owner.getName()) });
+				list.addItem(new ItemStack[] { FactionMemberItems.factionMember(owner, owner.getName()) });
 				i++;
 			} else {
-				list.addItem(new ItemStack[] { FactionItems.factionMember(owner, owner.getUniqueId().toString()) });
+				list.addItem(
+						new ItemStack[] { FactionMemberItems.factionMember(owner, owner.getUniqueId().toString()) });
 				i++;
 			}
 		}
@@ -50,9 +44,10 @@ public class FactionMembersMenu {
 
 			if ((i >= first) && (i <= last)) {
 				if (mod.getName() != null) {
-					list.addItem(new ItemStack[] { FactionItems.factionMember(mod, mod.getName()) });
+					list.addItem(new ItemStack[] { FactionMemberItems.factionMember(mod, mod.getName()) });
 				} else {
-					list.addItem(new ItemStack[] { FactionItems.factionMember(mod, mod.getUniqueId().toString()) });
+					list.addItem(
+							new ItemStack[] { FactionMemberItems.factionMember(mod, mod.getUniqueId().toString()) });
 				}
 			}
 			i++;
@@ -63,11 +58,11 @@ public class FactionMembersMenu {
 
 			if ((i >= first) && (i <= last)) {
 				if (member.getName() != null) {
-					list.addItem(new ItemStack[] { FactionItems.factionMember(member, member.getName()) });
+					list.addItem(new ItemStack[] { FactionMemberItems.factionMember(member, member.getName()) });
 
 				} else {
-					list.addItem(
-							new ItemStack[] { FactionItems.factionMember(member, member.getUniqueId().toString()) });
+					list.addItem(new ItemStack[] {
+							FactionMemberItems.factionMember(member, member.getUniqueId().toString()) });
 				}
 			}
 			i++;

@@ -255,7 +255,7 @@ public class FactionsHandler {
 		return null;
 	}
 	
-	// Listing out the Faction Owner
+	// Listing out the Faction Members
 	public static List<String> listFactionMembers(String name) {
 		if ((factions == null) || (factions.isEmpty())) {
 			return null;
@@ -268,7 +268,7 @@ public class FactionsHandler {
 		return null;
 	}
 	
-	// Listing out the Faction Owner
+	// Listing out the Faction Money Amount
 	public static int listFactionMoney(String name) {
 		if ((factions == null) || (factions.isEmpty())) {
 			return 0;
@@ -281,7 +281,7 @@ public class FactionsHandler {
 		return 0;
 	}
 	
-	// Listing out the Faction Owner
+	// Listing out the Faction Mods
 	public static List<String> listFactionMods(String name) {
 		if ((factions == null) || (factions.isEmpty())) {
 			return null;
@@ -294,7 +294,7 @@ public class FactionsHandler {
 		return null;
 	}
 	
-	// Listing out the Faction Owner
+	// Listing out the Faction Invites
 	public static List<String> listFactionInvites(String name) {
 		if ((factions == null) || (factions.isEmpty())) {
 			return null;
@@ -307,7 +307,7 @@ public class FactionsHandler {
 		return null;
 	}
 	
-	// Listing out the Faction Owner
+	// Listing out the Faction Invites Amount
 	public static int intFactionInvites(UUID uuid) {
 		if ((factions == null) || (factions.isEmpty())) {
 			return 0;

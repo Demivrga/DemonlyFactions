@@ -54,15 +54,15 @@ public class FactionsListEvents implements Listener {
 						String rank = FactionsHandler.getPlayersFactionRank(p.getUniqueId(), FactionName);
 
 						if (rank.equalsIgnoreCase("Member")) {
-							p.openInventory(FactionMemberMenu.factionMember(FactionName));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 						}
 
 						if (rank.equalsIgnoreCase("Mod")) {
-							p.openInventory(FactionMemberMenu.factionMember(FactionName));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 						}
 
 						if (rank.equalsIgnoreCase("Owner")) {
-							p.openInventory(FactionMemberMenu.factionMember(FactionName));
+							p.openInventory(FactionMemberMenu.factionMember(p));
 						}
 
 					} else {

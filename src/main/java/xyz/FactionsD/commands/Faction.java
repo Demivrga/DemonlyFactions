@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import xyz.FactionsD.factions.FactionsHandler;
 import xyz.FactionsD.menu.faction.FactionNoneMenu;
 import xyz.FactionsD.menu.faction.members.FactionMemberMenu;
+import xyz.FactionsD.menu.faction.owner.FactionOwnerMenu;
 
 public class Faction implements CommandExecutor {
 
@@ -19,10 +20,23 @@ public class Faction implements CommandExecutor {
 
 			if (lbl.equalsIgnoreCase("faction")) {
 
-				String FactionName = FactionsHandler.getPlayersFaction(p.getUniqueId());
+				String factionName = FactionsHandler.getPlayersFaction(p.getUniqueId());
 
-				if (FactionName != null) {
-					p.openInventory(FactionMemberMenu.factionMember(FactionName));
+				if (factionName != null) {
+
+					String factionRank = FactionsHandler.getPlayersFactionRank(p.getUniqueId(), factionName);
+
+					if (factionRank.equals("Member")) {
+						p.openInventory(FactionMemberMenu.factionMember(p));
+					}
+
+					if (factionRank.equals("Mod")) {
+						p.openInventory(FactionMemberMenu.factionMember(p));
+					}
+
+					if (factionRank.equals("Owner")) {
+						p.openInventory(FactionOwnerMenu.factionOwnerMenu(p));
+					}
 				} else {
 					p.openInventory(FactionNoneMenu.noFaction());
 				}
